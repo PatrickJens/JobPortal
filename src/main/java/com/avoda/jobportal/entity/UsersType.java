@@ -2,27 +2,62 @@ package com.avoda.jobportal.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name="userstype")
 public class UsersType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userID;
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    private int userTypeId;
 
-    @Column(unique = true)
-    private String email;
+    private String userTypeName;
 
-    @NotEmpty
-    private String password;
+    @OneToMany( targetEntity = Users.class, mappedBy = "userTypeId", cascade = CascadeType.ALL)
+    private List<Users> users;
 
-    
-    private boolean isActive;
+    public UsersType() {
+    }
 
-    private Date registrationDate;
+    public UsersType(int userTypeId, String userTypeName, List<Users> users) {
+        this.userTypeId = userTypeId;
+        this.userTypeName = userTypeName;
+        this.users = users;
+    }
 
-    private UsersType userTypeId;
+    public int getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(int userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
+    public String getUserTypeName() {
+        return userTypeName;
+    }
+
+    public void setUserTypeName(String userTypeName) {
+        this.userTypeName = userTypeName;
+    }
+
+    public List<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Users> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "UsersType{" +
+                "userTypeId=" + userTypeId +
+                ", userTypeName='" + userTypeName + '\'' +
+                '}';
+    }
 }
