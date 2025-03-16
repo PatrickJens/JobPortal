@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="userstype")
+@Table(name="users_type")
 public class UsersType {
 
     @Id
